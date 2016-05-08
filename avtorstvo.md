@@ -1,0 +1,1 @@
+Študent z vpisno številno 63120249 potrjujem da sem edini avtor domače naloge
