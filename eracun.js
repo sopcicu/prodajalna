@@ -60,6 +60,11 @@ streznik.get('/', function(zahteva, odgovor) {
           GROUP BY Track.TrackId \
           ORDER BY steviloProdaj DESC, pesem ASC \
           LIMIT 100", function(napaka, vrstice) {
+    if (zahteva.session.trStranka == null){
+      
+      odgovor.redirect("/prijava");
+      
+    }
     if (napaka)
       odgovor.sendStatus(500);
     else {
@@ -258,13 +263,16 @@ streznik.post('/stranka', function(zahteva, odgovor) {
   var form = new formidable.IncomingForm();
   
   form.parse(zahteva, function (napaka1, polja, datoteke) {
+    zahteva.session.trStranka = polja.seznamStrank;
     odgovor.redirect('/')
   });
 })
 
 // Odjava stranke
 streznik.post('/odjava', function(zahteva, odgovor) {
-    odgovor.redirect('/prijava') 
+  zahteva.session.destroy();
+  zahteva.session = null;
+  odgovor.redirect('/prijava') 
 })
 
 
