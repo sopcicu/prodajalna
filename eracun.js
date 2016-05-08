@@ -239,7 +239,9 @@ streznik.post('/stranka', function(zahteva, odgovor) {
 
 // Odjava stranke
 streznik.post('/odjava', function(zahteva, odgovor) {
-    odgovor.redirect('/prijava') 
+  zahteva.session.destroy();
+  zahteva.session = null;
+  odgovor.redirect('/prijava') 
 })
 
 
